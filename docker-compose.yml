@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysql-db:
+    image: mysql:8.0
+    container_name: smart_energy_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_energy_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - smart-energy-net
+
+  # Python FastAPI AI Prediction Microservice
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: smart_energy_ai
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - smart-energy-net
+
+  # Spring Boot REST API Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smart_energy_backend
+    restart: always
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/smart_energy_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      AI_SERVICE_BASE_URL: http://ai-service:8000
+    ports:
+      - "8080:8080"
+    networks:
+      - smart-energy-net
+
+  # React.js Modern Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smart_energy_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - smart-energy-net
+
+networks:
+  smart-energy-net:
+    driver: bridge
+
+volumes:
+  db_data:
