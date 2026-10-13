@@ -1,4 +1,16 @@
-export const API_BASE_URL = 'https://smart-building-energy-system-85sf.onrender.com/api';
+const configuredApiUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+const normalizedApiUrl = configuredApiUrl
+  ? configuredApiUrl.startsWith('http')
+    ? configuredApiUrl
+    : `https://${configuredApiUrl}`
+  : '';
+const normalizedApiBaseUrl = normalizedApiUrl.replace(/\/+$/, '');
+
+export const API_BASE_URL = normalizedApiUrl
+  ? normalizedApiBaseUrl.endsWith('/api')
+    ? normalizedApiBaseUrl
+    : `${normalizedApiBaseUrl}/api`
+  : '/api';
 
 export const DEFAULT_TARIFF_RATE = 8.0; // INR per kWh
 

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { Building2, Lock, Mail, User, Shield, ArrowRight, AlertCircle } from 'lucide-react';
+import { Building2, Lock, Mail, User, ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: '',
-    role: 'USER'
+    password: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -102,23 +101,6 @@ export default function Register() {
                   placeholder="At least 6 characters"
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                Role
-              </label>
-              <div className="relative">
-                <Shield className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-                <select
-                  value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
-                >
-                  <option value="USER">Facility Operator (User)</option>
-                  <option value="ADMIN">Building Executive (Admin)</option>
-                </select>
               </div>
             </div>
 

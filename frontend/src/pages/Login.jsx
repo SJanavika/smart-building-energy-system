@@ -4,8 +4,8 @@ import { useAuth } from '../hooks/useAuth';
 import { Building2, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function Login() {
-  const [email, setEmail] = useState('admin@smartbuilding.io');
-  const [password, setPassword] = useState('Password@123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -88,12 +88,6 @@ export default function Login() {
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
-            </div>
-
-            {/* Quick Demo Credentials Tip */}
-            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
-              <div className="font-semibold text-slate-700">Demo Credentials:</div>
-              <div>Admin: <code className="text-brand-700 bg-brand-50 px-1 py-0.5 rounded">admin@smartbuilding.io</code> / <code className="text-brand-700 bg-brand-50 px-1 py-0.5 rounded">Password@123</code></div>
             </div>
 
             <button

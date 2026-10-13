@@ -401,9 +401,7 @@ npm run dev
 The development API proxy targets `http://localhost:8080` by default. If the backend is running on another port, set `VITE_API_TARGET` before starting Vite (for example, in PowerShell: `$env:VITE_API_TARGET = "http://localhost:8081"`).
 Open your browser and navigate to: **`http://localhost:3000`**
 
-### Pre-loaded Login Credentials:
-* **Admin User**: `admin@smartbuilding.io` / `Password@123`
-* **Facility Manager**: `manager@smartbuilding.io` / `Password@123`
+Create an account from the registration page. New registrations are facility-operator accounts; an administrator must be provisioned directly in the database.
 
 ---
 
@@ -420,7 +418,22 @@ docker-compose up --build -d
 
 ---
 
-## 🎓 7. Academic Viva Voce / Project Defense Q&A
+## 🚀 7. Deploy to Render
+
+The root `render.yaml` Blueprint deploys the React static site, Spring Boot API, FastAPI AI service, and a PostgreSQL database. The API uses PostgreSQL on Render and the existing MySQL configuration for local development.
+
+1. Push this project to a GitHub repository and connect that repository to Render.
+2. In Render, choose **New → Blueprint**, select the repository, and apply `render.yaml`.
+3. Wait for the database and services to finish deploying. The Blueprint generates a JWT secret and supplies the database and API host settings.
+4. Open the deployed frontend URL and create an account. New public registrations are regular operator accounts, not admins.
+
+The API is available at `https://<api-service>.onrender.com/api`; its readiness endpoint is `/api/actuator/health`. Render's free web services can sleep when idle and are intended for testing rather than production. For production, select paid service and database plans and configure backups.
+
+For local frontend development, API requests use Vite's `/api` proxy. Set `VITE_API_TARGET` if the backend is not on `http://localhost:8080`.
+
+---
+
+## 🎓 8. Academic Viva Voce / Project Defense Q&A
 
 **Q1. Why is Random Forest Regressor chosen over Linear Regression?**
 > Energy consumption in buildings is non-linear. HVAC cooling requirements follow a thermodynamic curve related to temperature differentials and humidity enthalpy, while occupancy introduces non-linear step-changes in plug loads. Random Forest constructs an ensemble of de-correlated decision trees that easily capture these multi-dimensional non-linear interactions without overfitting.

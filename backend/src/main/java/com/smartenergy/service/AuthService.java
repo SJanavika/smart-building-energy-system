@@ -8,7 +8,6 @@ import com.smartenergy.model.Role;
 import com.smartenergy.model.User;
 import com.smartenergy.repository.UserRepository;
 import com.smartenergy.security.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +24,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
 
-    @Autowired
     public AuthService(AuthenticationManager authenticationManager,
                        UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
@@ -64,11 +62,7 @@ public class AuthService {
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
-        if (registerRequest.getRole() != null && registerRequest.getRole().equalsIgnoreCase("ADMIN")) {
-            user.setRole(Role.ROLE_ADMIN);
-        } else {
-            user.setRole(Role.ROLE_USER);
-        }
+        user.setRole(Role.ROLE_USER);
 
         User savedUser = userRepository.save(user);
 
