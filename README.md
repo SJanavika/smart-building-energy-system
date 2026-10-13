@@ -420,10 +420,10 @@ docker-compose up --build -d
 
 ## 🚀 7. Deploy to Render
 
-The root `render.yaml` Blueprint deploys the React static site, Spring Boot API, FastAPI AI service, and a PostgreSQL database. The API uses PostgreSQL on Render and the existing MySQL configuration for local development.
+The root `render.yaml` Blueprint reuses the existing `smart-building-energy-system` FastAPI service and deploys the React static site, Spring Boot API, and a PostgreSQL database. The API uses PostgreSQL on Render and the existing MySQL configuration for local development.
 
 1. Push this project to a GitHub repository and connect that repository to Render.
-2. In Render, choose **New → Blueprint**, select the repository, and apply `render.yaml`.
+2. In the same Render workspace as the existing `smart-building-energy-system` AI service, choose **New → Blueprint**, select the repository, and apply `render.yaml`.
 3. Wait for the database and services to finish deploying. The Blueprint generates a JWT secret and supplies the database and API host settings.
 4. Open the deployed frontend URL and create an account. New public registrations are regular operator accounts, not admins.
 
