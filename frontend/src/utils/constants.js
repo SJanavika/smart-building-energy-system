@@ -1,4 +1,4 @@
-export const API_BASE_URL = '/api';
+export const API_BASE_URL = 'https://smart-building-energy-system-85sf.onrender.com/api';
 
 export const DEFAULT_TARIFF_RATE = 8.0; // INR per kWh
 
