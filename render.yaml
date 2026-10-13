@@ -55,7 +55,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: smart-building-energy-api
-          property: host
+        value: smart-building-energy-api.onrender.com
