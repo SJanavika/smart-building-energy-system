@@ -1,21 +1,5 @@
-# Node.js dependencies
 node_modules/
-frontend/node_modules/
-
-# Frontend build output
-frontend/dist/
-
-# Python virtual environments
-venv/
-.venv/
-ai-service/venv/
-backend/venv/
-
-# Python cache
-__pycache__/
-*.py[cod]
-
-# Environment variables
+dist/
 .env
 .env.*
 !.env.example
